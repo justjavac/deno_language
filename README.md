@@ -6,6 +6,8 @@
 
 [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language.
 
+JSON data from [joker-x/languages.js](https://github.com/joker-x/languages.js/blob/master/languages.json).
+
 ## Usage
 
 All ISO 639-1 language code:
