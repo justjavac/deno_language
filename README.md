@@ -1,49 +1,89 @@
-# deno_starter
+# deno_language
 
-[![tag](https://img.shields.io/github/release/denomod/deno_starter)](https://github.com/denomod/deno_starter/releases)
-[![Build Status](https://github.com/denomod/deno_starter/workflows/ci/badge.svg?branch=master)](https://github.com/denomod/deno_starter/actions)
-[![license](https://img.shields.io/github/license/denomod/deno_starter)](https://github.com/denomod/deno_starter/blob/master/LICENSE)
-[![](https://img.shields.io/badge/deno-v1.2-green.svg)](https://github.com/denoland/deno)
+[![tag](https://img.shields.io/github/release/justjavac/deno_language)](https://github.com/justjavac/deno_language/releases)
+[![Build Status](https://github.com/justjavac/deno_language/workflows/ci/badge.svg?branch=master)](https://github.com/justjavac/deno_language/actions)
+[![license](https://img.shields.io/github/license/justjavac/deno_language)](https://github.com/justjavac/deno_language/blob/master/LICENSE)
 
-Quickly start a Deno module.
+[ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) language.
 
-## 🧐 What's inside?
+## Usage
 
-A quick look at the files and directories you'll see in a Deno project.
+All ISO 639-1 language code:
 
-    .
-    ├─ .github
-    │   └─ workflows
-    │       └─ ci.yml
-    ├─ .vscode
-    ├─ .vscode
-    │   ├─ extensions.json
-    │   └─ settings.json
-    ├─ .gitattributes
-    ├─ .gitignore
-    ├─ CHANGELOG.md
-    ├─ LICENSE
-    ├─ mod_test.ts
-    ├─ mod.ts
-    └─ README.md
+```ts
+import languages from "https://deno.land/x/language/languages.ts";
 
-1.  **`.github\workflows\ci.yml`**: GitHub Actions.
+console.log(languages)
+```
 
-1.  **`.vscode\extensions.json`**: Workspace recommended extensions for Deno Developers.
+output:
 
-1.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+```ts
+{
+  "attribute": { "name": 0, "nativeName": 1 },
+  "rtl": {
+    "ar": 1,
+    "dv": 1,
+    "fa": 1,
+    "ha": 1,
+    "he": 1,
+    "ks": 1,
+    "ku": 1,
+    "ps": 1,
+    "ur": 1,
+    "yi": 1,
+  },
+  "lang": {
+    "aa": ["Afar", "Afar"],
+    "ab": ["Abkhazian", "Аҧсуа"],
+    "af": ["Afrikaans", "Afrikaans"],
+    "ak": ["Akan", "Akana"],
+    ...
+    ...
+```
 
-1.  **`CHANGELOG.md`**: This file contains a curated, chronologically ordered list of notable changes for each version of a project. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-    and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Get the writing direction of the language. `"rtl"` or `"ltr"`:
 
-1.  **`LICENSE`**: Deno is licensed under the MIT license.
+```ts
+import { getLangDirection } from "https://deno.land/x/language/mod.ts";
 
-1.  **`mod.ts`**: Deno's default entry point. The filename mod.ts follows Rust’s convention, is shorter than index.ts, and doesn’t come with any preconceived notions about how it might work. Deno does not treat "index.js" or "index.ts" in a special way. By using these filenames, it suggests that they can be left out of the module specifier when they cannot. This is confusing.
+getLangDirection("ar"); // rtl
+getLangDirection("zh"); // "ltr"
+```
 
-1.  **`mod_test.ts`**: Each module should come with its test as a sibling with the name `modulename_test.ts`. For example the module `foo.ts` should come with its sibling `foo_test.ts`.
+Check if the language code is valid:
 
-1.  **`README.md`**: A text file containing useful reference information about your project.
+```ts
+import { isValid } from "https://deno.land/x/language/mod.ts";
+
+isValid("ab"); // true
+isValid("zh"); // true
+isValid("zz"); // false
+```
+
+Get an array with all the language codes supported:
+
+```ts
+import { getAllLanguageCode } from "https://deno.land/x/language/mod.ts";
+
+getAllLanguageCode(); // ["aa", "ab", "af", "ak", ..., ...]
+```
+
+Get LanguageInfo:
+
+```ts
+import { getLanguageInfo } from "https://deno.land/x/language/mod.ts";
+
+getLanguageInfo("en");
+// { name: "English", nativeName: "English", direction: "ltr" }
+
+getLanguageInfo("zh");
+{ name: "Chinese", nativeName: "中文", direction: "ltr" }
+
+getLanguageInfo("zz");
+// null
+```
 
 ### License
 
-[deno_starter](https://github.com/denomod/deno_starter) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.
+[deno_language](https://github.com/justjavac/deno_language) is released under the MIT License. See the bundled [LICENSE](./LICENSE) file for details.

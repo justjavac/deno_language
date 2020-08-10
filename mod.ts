@@ -1,15 +1,53 @@
+import languages from "./languages.ts";
+
+export type LangDirection = "rtl" | "ltr";
+
+export interface LanguageInfo {
+  /** name of the language in English */
+  name: string;
+  nativeName: string;
+  direction: LangDirection;
+}
+
+function hasOwnProperty(o: unknown, v: string | number | symbol) {
+  return Object.prototype.hasOwnProperty.call(o, v);
+}
+
 /**
- * Every exported symbol ideally should have a documentation line.
- *
- * It is important that documentation is easily human readable,
- * but there is also a need to provide additional styling information to ensure
- * generated documentation is more rich text.
- * Therefore JSDoc should generally follow markdown markup to enrich the text.
- *
- * follow https://deno.land/std/style_guide.md
- *
- * @param foo - Description of non obvious parameter
+ * Get the writing direction of the language. "rtl" or "ltr".
+ * @param langcode
  */
-export default function starter(foo: string): string {
-  return foo;
+export function getLangDirection(langcode: string): LangDirection {
+  return hasOwnProperty(languages.rtl, langcode) ? "rtl" : "ltr";
+}
+
+/**
+ * Check if the language code is valid.
+ * @param langcode
+ */
+export function isValid(
+  langcode: string,
+): langcode is keyof typeof languages.lang {
+  return hasOwnProperty(languages.lang, langcode);
+}
+
+/**
+ * get an array with all the language codes supported
+ */
+export function getAllLanguageCode(): string[] {
+  return Object.keys(languages.lang);
+}
+
+export function getLanguageInfo(langcode: string): LanguageInfo | null {
+  if (!isValid(langcode)) {
+    return null;
+  }
+
+  let lang = languages.lang[langcode];
+
+  return {
+    name: lang[0],
+    nativeName: lang[1],
+    direction: getLangDirection(langcode),
+  };
 }
