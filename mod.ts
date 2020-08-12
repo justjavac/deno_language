@@ -1,3 +1,4 @@
+import { hasOwnProperty } from "https://deno.land/x/std/_util/has_own_property.ts";
 import languages from "./languages.ts";
 
 export type LangDirection = "rtl" | "ltr";
@@ -7,10 +8,6 @@ export interface LanguageInfo {
   name: string;
   nativeName: string;
   direction: LangDirection;
-}
-
-function hasOwnProperty(o: unknown, v: string | number | symbol) {
-  return Object.prototype.hasOwnProperty.call(o, v);
 }
 
 /**
