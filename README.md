@@ -80,7 +80,7 @@ getLanguageInfo("en");
 // { name: "English", nativeName: "English", direction: "ltr" }
 
 getLanguageInfo("zh");
-{ name: "Chinese", nativeName: "中文", direction: "ltr" }
+// { name: "Chinese", nativeName: "中文", direction: "ltr" }
 
 getLanguageInfo("zz");
 // null
